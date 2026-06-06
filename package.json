@@ -43,8 +43,8 @@
     "@stdlib/utils-define-nonenumerable-read-only-property": "^0.2.3"
   },
   "devDependencies": {
-    "@stdlib/array-base-filled": "^0.2.3",
     "@stdlib/array-base-to-accessor-array": "^0.2.3",
+    "@stdlib/array-falses": "github:stdlib-js/array-falses#main",
     "@stdlib/assert-is-boolean": "^0.2.3",
     "@stdlib/math-base-special-pow": "^0.3.1",
     "@stdlib/random-array-bernoulli": "^0.2.2",
