@@ -41,38 +41,32 @@ limitations under the License.
 
 <!-- /.intro -->
 
+<section class="installation">
 
+## Installation
+
+```bash
+npm install @stdlib/blas-ext-base-gcusome
+```
+
+Alternatively,
+
+-   To load the package in a website via a `script` tag without installation and bundlers, use the [ES Module][es-module] available on the [`esm`][esm-url] branch (see [README][esm-readme]).
+-   If you are using Deno, visit the [`deno`][deno-url] branch (see [README][deno-readme] for usage intructions).
+-   For use in Observable, or in browser/node environments, use the [Universal Module Definition (UMD)][umd] build available on the [`umd`][umd-url] branch (see [README][umd-readme]).
+
+The [branches.md][branches-url] file summarizes the available branches and displays a diagram illustrating their relationships.
+
+To view installation and usage instructions specific to each branch build, be sure to explicitly navigate to the respective README files on each branch, as linked to above.
+
+</section>
 
 <section class="usage">
 
 ## Usage
 
-To use in Observable,
-
 ```javascript
-gcusome = require( 'https://cdn.jsdelivr.net/gh/stdlib-js/blas-ext-base-gcusome@umd/browser.js' )
-```
-
-To vendor stdlib functionality and avoid installing dependency trees for Node.js, you can use the UMD server build:
-
-```javascript
-var gcusome = require( 'path/to/vendor/umd/blas-ext-base-gcusome/index.js' )
-```
-
-To include the bundle in a webpage,
-
-```html
-<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/stdlib-js/blas-ext-base-gcusome@umd/browser.js"></script>
-```
-
-If no recognized module system is present, access bundle contents via the global scope:
-
-```html
-<script type="text/javascript">
-(function () {
-    window.gcusome;
-})();
-</script>
+var gcusome = require( '@stdlib/blas-ext-base-gcusome' );
 ```
 
 #### gcusome( N, k, x, strideX, out, strideOut )
@@ -111,18 +105,19 @@ Note that indexing is relative to the first index. To introduce an offset, use [
 <!-- eslint-disable stdlib/capitalized-comments -->
 
 ```javascript
+var BooleanArray = require( '@stdlib/array-bool' );
 var Uint8Array = require( '@stdlib/array-uint8' );
 
 // Initial arrays...
 var x0 = new Uint8Array( [ 0, 0, 1, 0, 1, 1 ] );
-var o0 = new Uint8Array( x0.length );
+var o0 = new BooleanArray( x0.length );
 
 // Create offset views...
 var x1 = new Uint8Array( x0.buffer, x0.BYTES_PER_ELEMENT*1 ); // start at 2nd element
-var o1 = new Uint8Array( o0.buffer, o0.BYTES_PER_ELEMENT*3 ); // start at 4th element
+var o1 = new BooleanArray( o0.buffer, o0.BYTES_PER_ELEMENT*3 ); // start at 4th element
 
 gcusome( 3, 2, x1, 2, o1, 1 );
-// o0 => <Uint8Array>[ 0, 0, 0, 0, 0, 0 ]
+// o0 => <BooleanArray>[ false, false, false, false, false, false ]
 ```
 
 #### gcusome.ndarray( N, k, x, strideX, offsetX, out, strideOut, offsetOut )
@@ -173,29 +168,19 @@ gcusome.ndarray( 3, 2, x, 2, 2, out, 1, 0 );
 
 <!-- eslint no-undef: "error" -->
 
-```html
-<!DOCTYPE html>
-<html lang="en">
-<body>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/stdlib-js/random-array-bernoulli@umd/browser.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/stdlib-js/array-base-filled@umd/browser.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/stdlib-js/blas-ext-base-gcusome@umd/browser.js"></script>
-<script type="text/javascript">
-(function () {
+```javascript
+var bernoulli = require( '@stdlib/random-array-bernoulli' );
+var falses = require( '@stdlib/array-falses' );
+var gcusome = require( '@stdlib/blas-ext-base-gcusome' );
 
 var x = bernoulli( 10, 0.5, {
     'dtype': 'generic'
 });
 console.log( x );
 
-var out = filled( false, x.length );
+var out = falses( x.length, 'generic' );
 gcusome( x.length, 2, x, 1, out, 1 );
 console.log( out );
-
-})();
-</script>
-</body>
-</html>
 ```
 
 </section>
@@ -286,7 +271,7 @@ Copyright &copy; 2016-2026. The Stdlib [Authors][stdlib-authors].
 
 [mdn-typed-array]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypedArray
 
-[@stdlib/array/base/accessor]: https://github.com/stdlib-js/array-base-accessor/tree/umd
+[@stdlib/array/base/accessor]: https://github.com/stdlib-js/array-base-accessor
 
 <!-- <related-links> -->
 
